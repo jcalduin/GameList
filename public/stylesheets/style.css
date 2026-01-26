@@ -1,8 +1,25 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import "theme.css";
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+body {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
+
+/* Clase para botones gemelos en móvil */
+.btn-fixed-mobile {
+    width: 200px; /* Ancho fijo para que ambos sean iguales */
+}
+
+/* En escritorio volvemos al ancho automático */
+@media (min-width: 768px) {
+    .btn-fixed-mobile {
+        width: auto;
+    }
 }
