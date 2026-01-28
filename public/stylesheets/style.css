@@ -23,3 +23,17 @@ body {
         width: auto;
     }
 }
+
+/* Creamos una clase que se adapte al viewport */
+.hero-viewport {
+    height: 75vh; /* 75% de la altura de la pantalla */
+    object-fit: cover;
+    filter: blur(1px) brightness(0.5);
+}
+
+/* En móviles podemos hacerla más pequeña si queremos */
+@media (max-width: 768px) {
+    .hero-viewport {
+        height: 50vh;
+    }
+}
