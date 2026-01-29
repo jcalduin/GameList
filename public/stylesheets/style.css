@@ -37,3 +37,16 @@ body {
         height: 50vh;
     }
 }
+
+/* Altura fija para que todas las tarjetas sean iguales*/
+.card-cover {
+    min-height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay; /* esta propiedad me la saco IA para poder superponer un color oscuro y que el fondo y el texto sean legibles, podria haber usado opacity pero quise probar esta*/
+    transition: transform 0.3s ease; 
+}
+
+.card-cover:hover {
+    transform: scale(1.02);
+}
