@@ -11,27 +11,36 @@ body {
     min-height: 100vh;
     grid-template-rows: auto 1fr auto;
 }
+/* Clase para el carrusel, borde redondeado en escritorio */
+.carousel-inner {
+    border-radius: 0;
+}
 
-/* Clase para botones gemelos en móvil */
+@media (min-width: 768px) {
+    .carousel-inner {
+        border-radius: 1rem; 
+    }
+}
+
+/* Clase para botones barra nav*/
 .btn-fixed-mobile {
     width: 200px; /* Ancho fijo para que ambos sean iguales */
 }
 
 /* En escritorio volvemos al ancho automático */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .btn-fixed-mobile {
         width: auto;
     }
 }
 
-/* Creamos una clase que se adapte al viewport */
+/* Clase para altura de hero */
 .hero-viewport {
-    height: 75vh; /* 75% de la altura de la pantalla */
+    height: 75vh; 
     object-fit: cover;
     filter: blur(1px) brightness(0.5);
 }
 
-/* En móviles podemos hacerla más pequeña si queremos */
 @media (max-width: 768px) {
     .hero-viewport {
         height: 50vh;
@@ -43,7 +52,7 @@ body {
     min-height: 350px;
     background-size: cover;
     background-position: center;
-    background-blend-mode: overlay; /* esta propiedad me la saco IA para poder superponer un color oscuro y que el fondo y el texto sean legibles, podria haber usado opacity pero quise probar esta*/
+    background-blend-mode: overlay; /* esta propiedad me la saco de la IA para poder superponer un color oscuro y que el fondo y el texto sean legibles, podria haber usado opacity pero quise probar esta*/
     transition: transform 0.3s ease; 
 }
 
