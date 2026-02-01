@@ -5,11 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts'); // Importar el middleware de layouts
 var session = require('express-session'); // Importar el middleware de sesión
+const Database = require('./database/Database'); // Importar la configuración de la base de datos
 
 var auth = require('./middlewares/auth'); // Importar el middleware de autenticación
 
 var indexRouter = require('./routes/index'); // traigo las rutas principales, para este ejercicio usaremos solo index.js
 
+Database.getInstance('./database/database.db'); // Inicializar la base de datos
 var app = express(); //a aprtir de aquí se configura el servidor
 
 // view engine setup
