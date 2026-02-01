@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
+const Database = require('../database/Database');
+const UsuarioDAO = require('../database/usuario-dao');
+
+const db = Database.getInstance();
+const usuarioDAO = new UsuarioDAO(db);
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -10,6 +16,21 @@ router.get('/', function(req, res, next) {
 router.get('/registro', function(req, res, next) {
   res.render('registro');
 });
+
+/* POST login page */
+router.post('/login', function(req,res,next){
+
+  const { email, password } = req.body;
+
+  const usuario = usuarioDAO.buscarUsuarioPorEmail(email);
+
+  if (!usuario) res.render('index', { error: 'Usuario no encontrado' });
+  
+  if (usuario.password === password) res.render('perfil', { usuario })
+
+  else res.render('index', { error: 'Contraseña incorrecta' })
+  
+})
 
 /*GET perfil page */
 router.get('/perfil', function(req, res, next) {
