@@ -9,6 +9,9 @@ const usuarioDAO = new UsuarioDAO(db);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  if (req.session.user) {
+    return res.redirect('/perfil');
+  }
   res.render('index', { title: 'Express' });
 });
 
@@ -17,6 +20,23 @@ router.get('/registro', function(req, res, next) {
   res.render('registro');
 });
 
+/* POST register page */
+router.post('/registro', function(req,res,next){
+
+  const { nickname, email, password } = req.body;
+
+  const usuarioExistente = usuarioDAO.buscarUsuarioPorEmail(email);
+
+  if (usuarioExistente) {
+    return  res.render('registro', { error: 'El usuario ya existe' });
+  }
+
+  usuarioDAO.agregarUsuario(nickname, email, password);
+
+  res.redirect('/');
+
+})
+
 /* POST login page */
 router.post('/login', function(req,res,next){
 
@@ -24,7 +44,7 @@ router.post('/login', function(req,res,next){
 
   const usuario = usuarioDAO.buscarUsuarioPorEmail(email);
 
-  if (!usuario) res.render('index', { error: 'Usuario no encontrado' });
+  if (!usuario) return res.render('index', { error: 'Usuario no encontrado' });
   
   if (usuario.password === password) {
 

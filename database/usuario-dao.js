@@ -18,7 +18,14 @@ class UsuarioDAO {
 
     }
     
+    agregarUsuario(nickname, email, password) {
 
+        const sql = 'INSERT INTO usuarios (nickname, email, password) VALUES (?, ?, ?)'
+
+        const resultado = this.#database.prepare(sql).run(nickname, email, password)
+
+        return resultado
+    }
 
 }
 
