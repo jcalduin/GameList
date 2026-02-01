@@ -1,0 +1,107 @@
+<section class="py-5 mt-5">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="text-center py-3 border-bottom border-dark-subtle">
+                <h1 class="display-3 fw-bold"><i class="bi bi-headset"></i> Player: [<span>nickname</span>]</h1>
+                <p class="lead text-muted">Gestiona tus títulos, plataformas y estados de juego</p>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                <h2 class="display-5 my-3">Filtros</h2>
+                <a href="#" class="btn btn-primary btn-lg"><i class="bi bi-plus-circle"></i> Añadir Nuevo Juego</a>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="filtro-plataforma" class="form-label">Plataforma</label>
+                <select id="filtro-plataforma" class="form-select">
+                    <option value="" selected>Todas las plataformas</option>
+                    <option value="pc">PC</option>
+                    <option value="ps5">PlayStation 5</option>
+                    <option value="xbox">Xbox Series X</option>
+                    <option value="switch">Nintendo Switch</option>
+                </select>
+            </div> 
+
+            <div class="col-md-4 mb-3">
+                <label for="filtro-estado" class="form-label">Estado</label>
+                <select id="filtro-estado" class="form-select">
+                    <option value="" selected>Todos los estados</option>
+                    <option value="jugando">Jugando</option>
+                    <option value="completado">Completado</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="abandonado">Abandonado</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="filtro-genero" class="form-label">Género</label>
+                <select id="filtro-genero" class="form-select">
+                    <option value="" selected>Todos los géneros</option>
+                    <option value="accion">Acción</option>
+                    <option value="aventura">Aventura</option>
+                    <option value="rpg">RPG</option>
+                    <option value="estrategia">Estrategia</option>
+                    <option value="deportes">Deportes</option>
+                    <option value="shooter">Shooter</option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container mt-4">
+
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0 bg-dark text-white">
+                    <img src="https://im.ziffdavisinternational.com/ign_es/screenshot/default/caja-reach-halo_u3my.png" class="card-img-top card-game-img" alt="...">
+                    
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">Halo Reach</h5>
+                        <p class="card-text mb-1 text-white-50 small">PC • Shooter</p>
+                        
+                        <div class="mb-3">
+                            <span class="badge bg-primary">Jugando</span>
+                        </div>
+
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-light w-100">Editar</a>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Modal de Confirmación de Eliminación -->
+<div class="modal fade" id="confirmarEliminar" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-3 shadow">
+            
+            <div class="modal-body p-4 text-center">
+                <h5 class="mb-0" id="confirmarEliminarLabel">¿Estás seguro de que deseas eliminar este juego?</h5>
+                <p class="text-muted mt-2 small">Esta acción no se puede deshacer</p>
+            </div>
+
+            <div class="modal-footer flex-nowrap p-0">
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end fw-bold" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-lg btn-link fs-6 text-danger col-6 py-3 m-0 rounded-0 fw-bold" data-bs-dismiss="modal">Eliminar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
