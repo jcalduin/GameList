@@ -37,10 +37,8 @@ router.post('/login', function(req,res,next){
 
 /* GET logout page */
 router.get('/logout', function(req,res,next){
-
   req.session.destroy();
   res.redirect('/');
-  
 });
 
 /*GET perfil page */

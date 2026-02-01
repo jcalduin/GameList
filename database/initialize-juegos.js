@@ -9,8 +9,8 @@ module.exports = (db) => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             usuario_id INTEGER NOT NULL,
             titulo VARCHAR(255) NOT NULL,
-            plataforma VARCHAR(255) CHECK(plataforma IN ('PC', 'PlayStation', 'Xbox', 'Switch', 'Mobile')) NOT NULL,
-            genero VARCHAR(255) CHECK(genero IN ('Acción', 'Aventura', 'RPG', 'Deportes', 'Estrategia', 'Puzzle', 'Simulación', 'Terror')),
+            plataforma VARCHAR(255) CHECK(plataforma IN ('PC', 'PlayStation', 'Xbox', 'Switch')) NOT NULL,
+            genero VARCHAR(255) CHECK(genero IN ('Acción', 'Aventura', 'RPG', 'Deportes', 'Estrategia', 'Puzzle', 'Shooter', 'Simulación', 'Terror')),
             estado VARCHAR(255) CHECK(estado IN ('Pendiente', 'Jugando', 'Completado', 'Abandonado')) DEFAULT 'Pendiente',
             imagen TEXT,
             FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
