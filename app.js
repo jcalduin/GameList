@@ -3,12 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var expressLayouts = require('express-ejs-layouts');
-var session = require('express-session');
+var expressLayouts = require('express-ejs-layouts'); // Importar el middleware de layouts
+var session = require('express-session'); // Importar el middleware de sesión
 
-var indexRouter = require('./routes/index');
+var auth = require('./middlewares/auth'); // Importar el middleware de autenticación
 
-var app = express();
+var indexRouter = require('./routes/index'); // traigo las rutas principales, para este ejercicio usaremos solo index.js
+
+var app = express(); //a aprtir de aquí se configura el servidor
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,12 +23,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ 
+app.use(session({  // Configuración del middleware de sesión, para gestionar usuarios logueados
   secret : 'clave-secreta-cambiar-mas-adelante', 
   resave: false,
   saveUninitialized: false,
   cookie: {maxAge : 1000*60*60*24} 
 }))
+
+app.use(auth); // Usar el middleware de autenticación en todas las rutas
 
 app.use('/', indexRouter);
 
