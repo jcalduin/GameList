@@ -26,14 +26,28 @@ router.post('/login', function(req,res,next){
 
   if (!usuario) res.render('index', { error: 'Usuario no encontrado' });
   
-  if (usuario.password === password) res.render('perfil', { usuario })
+  if (usuario.password === password) {
 
-  else res.render('index', { error: 'Contraseña incorrecta' })
+    req.session.user = usuario;
+    res.redirect('/perfil');
+
+  } else res.render('index', { error: 'Contraseña incorrecta' })
   
 })
 
+/* GET logout page */
+router.get('/logout', function(req,res,next){
+
+  req.session.destroy();
+  res.redirect('/');
+  
+});
+
 /*GET perfil page */
 router.get('/perfil', function(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect('/');
+  }
   res.render('perfil');
 });
 
