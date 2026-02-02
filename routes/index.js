@@ -3,9 +3,11 @@ var router = express.Router();
 
 const Database = require('../database/Database');
 const UsuarioDAO = require('../database/usuario-dao');
+const JuegosDAO = require('../database/juegos-dao');
 
 const db = Database.getInstance();
 const usuarioDAO = new UsuarioDAO(db);
+const juegosDAO = new JuegosDAO(db);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -66,17 +68,62 @@ router.get('/perfil', function(req, res, next) {
   if (!req.session.user) {
     return res.redirect('/');
   }
-  res.render('perfil');
+
+  const juegos = juegosDAO.buscarJuegosPorUsuarioId(req.session.user.id);
+
+  res.render('perfil', { juegos, user: req.session.user });
 });
 
 /*GET nuevo juego page */
 router.get('/nuevo-juego', function(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect('/');
+  }
   res.render('nuevo-juego');
+});
+
+/* POST nuevo juego */
+router.post('/nuevo-juego', function(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect('/');
+  }
+  const { titulo, plataforma, genero, estado, imagen } = req.body;
+  juegosDAO.agregarJuego(titulo, plataforma, genero, estado, imagen, req.session.user.id);
+  res.redirect('/perfil');
 });
 
 /*GET editar juego page */
 router.get('/editar', function(req, res, next) {
-  res.render('editar');
+  if (!req.session.user) {
+    return res.redirect('/');
+  }
+  const juegoId = req.query.id; //parametro pasado en la URL
+  const juego = juegosDAO.buscarJuegoPorId(juegoId);
+  res.render('editar', { juego });
+});
+
+/* POST eliminar juego */
+router.post('/eliminar/:id', function(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect('/');
+  }
+
+  const juegoId = req.params.id;
+  juegosDAO.eliminarJuegoPorId(juegoId);
+
+  res.redirect('/perfil');
+});
+
+/* POST editar juego */
+router.post('/editar/:id', function(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect('/');
+  }
+  const juegoId = req.params.id; //parametro pasado en la URL
+  const { titulo, plataforma, genero, estado, imagen } = req.body;
+  juegosDAO.editarJuego(juegoId, titulo, plataforma, genero, estado, imagen);
+
+  res.redirect('/perfil');
 });
 
 module.exports = router;

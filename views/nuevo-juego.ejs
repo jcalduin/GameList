@@ -6,7 +6,7 @@
 
             <div class="card-body p-5">
                 
-                <form action="/videojuegos/guardar" method="POST" enctype="multipart/form-data">
+                <form action="/nuevo-juego" method="POST">
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Título del Videojuego</label>
@@ -19,9 +19,9 @@
                             <label class="form-label fw-bold">Plataforma</label>
                             <select name="plataforma" class="form-select" required>
                                 <option value="PC">PC</option>
-                                <option value="PS5">PlayStation 5</option>
-                                <option value="Xbox">Xbox Series X</option>
-                                <option value="Switch">Nintendo Switch</option>
+                                <option value="PlayStation">PlayStation</option>
+                                <option value="Xbox">Xbox</option>
+                                <option value="Switch">Switch</option>
                             </select>
                         </div>
 
@@ -31,6 +31,12 @@
                                 <option value="Accion">Acción</option>
                                 <option value="RPG">RPG</option>
                                 <option value="Aventura">Aventura</option>
+                                <option value="Deportes">Deportes</option>
+                                <option value="Estrategia">Estrategia</option>
+                                <option value="Puzzle">Puzzle</option>
+                                <option value="Shooter">Shooter</option>
+                                <option value="Simulacion">Simulación</option>
+                                <option value="Terror">Terror</option>
                             </select>
                         </div>
 
@@ -48,6 +54,9 @@
                             
                             <input type="radio" class="btn-check" name="estado" id="estado3" value="Completado">
                             <label class="btn btn-outline-success" for="estado3">Completado</label>
+
+                            <input type="radio" class="btn-check" name="estado" id="estado4" value="Abandonado">
+                            <label class="btn btn-outline-danger" for="estado4">Abandonado</label>
                         </div>
 
                     </div>

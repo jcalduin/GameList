@@ -42,3 +42,15 @@
         })
     }
 })()
+
+
+// Capturar el juego a eliminar cuando se abre el modal
+document.querySelectorAll('.btn-eliminar').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const juegoId = this.getAttribute('data-juego-id');
+        const juegoTitulo = this.getAttribute('data-juego-titulo');
+            
+        document.querySelector('#juegoNombre').textContent = juegoTitulo;
+        document.querySelector('#formEliminar').action = '/eliminar/' + juegoId;
+    });
+});

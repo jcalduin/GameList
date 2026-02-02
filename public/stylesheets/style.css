@@ -62,6 +62,7 @@ body {
 
 /* Estilo para foto card games */
 .card-game-img {
-    height: 200px;
+    width: 100%;
+    aspect-ratio: 3/4; /* Proporción típica de caratulas de juegos */
     object-fit: cover;
 }

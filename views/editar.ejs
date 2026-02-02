@@ -6,11 +6,11 @@
 
             <div class="card-body p-5">
                 
-                <form action="/videojuegos/actualizar/" method="POST" enctype="multipart/form-data">
+                <form action="/editar/<%= juego.id %>" method="POST">
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Título del Videojuego</label>
-                        <input type="text" name="titulo" class="form-control" placeholder="Ej: Elden Ring" required>
+                        <input type="text" name="titulo" class="form-control" value="<%= juego.titulo %>" placeholder="Ej: Elden Ring" required>
                     </div>
 
                     <div class="row">
@@ -18,19 +18,25 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Plataforma</label>
                             <select name="plataforma" class="form-select" required>
-                                <option value="PC">PC</option>
-                                <option value="PS5">PlayStation 5</option>
-                                <option value="Xbox">Xbox Series X</option>
-                                <option value="Switch">Nintendo Switch</option>
+                                <option value="PC" <%= juego.plataforma === 'PC' ? 'selected' : '' %>>PC</option>
+                                <option value="PlayStation" <%= juego.plataforma === 'PlayStation' ? 'selected' : '' %>>PlayStation</option>
+                                <option value="Xbox" <%= juego.plataforma === 'Xbox' ? 'selected' : '' %>>Xbox</option>
+                                <option value="Switch" <%= juego.plataforma === 'Switch' ? 'selected' : '' %>>Switch</option>
                             </select>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Género</label>
                             <select name="genero" class="form-select" required>
-                                <option value="Accion">Acción</option>
-                                <option value="RPG">RPG</option>
-                                <option value="Aventura">Aventura</option>
+                                <option value="Accion" <%= juego.genero === 'Accion' ? 'selected' : '' %>>Acción</option>
+                                <option value="RPG" <%= juego.genero === 'RPG' ? 'selected' : '' %>>RPG</option>
+                                <option value="Aventura" <%= juego.genero === 'Aventura' ? 'selected' : '' %>>Aventura</option>
+                                <option value="Deportes" <%= juego.genero === 'Deportes' ? 'selected' : '' %>>Deportes</option>
+                                <option value="Estrategia" <%= juego.genero === 'Estrategia' ? 'selected' : '' %>>Estrategia</option>
+                                <option value="Puzzle" <%= juego.genero === 'Puzzle' ? 'selected' : '' %>>Puzzle</option>
+                                <option value="Shooter" <%= juego.genero === 'Shooter' ? 'selected' : '' %>>Shooter</option>
+                                <option value="Simulacion" <%= juego.genero === 'Simulacion' ? 'selected' : '' %>>Simulación</option>
+                                <option value="Terror" <%= juego.genero === 'Terror' ? 'selected' : '' %>>Terror</option>
                             </select>
                         </div>
 
@@ -40,21 +46,25 @@
                         <label class="form-label fw-bold">Estado de progreso</label>
 
                         <div class="btn-group w-100" role="group">
-                            <input type="radio" class="btn-check" name="estado" id="estado1" value="Pendiente">
+                            <input type="radio" class="btn-check" name="estado" id="estado1" value="Pendiente" <%= juego.estado === 'Pendiente' ? 'checked' : '' %>>
                             <label class="btn btn-outline-secondary" for="estado1">Pendiente</label>
 
-                            <input type="radio" class="btn-check" name="estado" id="estado2" value="Jugando">
+                            <input type="radio" class="btn-check" name="estado" id="estado2" value="Jugando" <%= juego.estado === 'Jugando' ? 'checked' : '' %>>
                             <label class="btn btn-outline-primary" for="estado2">Jugando</label>
 
-                            <input type="radio" class="btn-check" name="estado" id="estado3" value="Completado">
+                            <input type="radio" class="btn-check" name="estado" id="estado3" value="Completado" <%= juego.estado === 'Completado' ? 'checked' : '' %>>
                             <label class="btn btn-outline-success" for="estado3">Completado</label>
+
+                            <input type="radio" class="btn-check" name="estado" id="estado4" value="Abandonado" <%= juego.estado === 'Abandonado' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-danger" for="estado4">Abandonado</label>
+
                         </div>
                         
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">URL de la carátula (Imagen)</label>
-                        <input type="url" name="imagen" class="form-control" placeholder="https://link-a-la-imagen.jpg">
+                        <input type="url" name="imagen" class="form-control" value="<%= juego.imagen %>" placeholder="https://link-a-la-imagen.jpg">
                     </div>
 
                     <div class="d-flex gap-2 mt-4">
