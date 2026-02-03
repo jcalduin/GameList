@@ -11,6 +11,12 @@ Desarrollada con **Node.js**, **Express** y **SQLite**, ofrece una interfaz mode
 
 ---
 
+## 🚀 Demo en Vivo
+Puedes acceder a la aplicación desplegada aquí:  
+🔗 **[https://gamelist-jcalduin.onrender.com](https://gamelist-sxd3.onrender.com)** *(Nota: Al usar el plan gratuito de Render, la primera carga puede tardar unos segundos si el servidor estaba inactivo).*
+
+---
+
 ## ✨ Características Principales
 
 * **🔐 Autenticación de Usuarios:** Registro e inicio de sesión seguros con gestión de sesiones.
