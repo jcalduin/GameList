@@ -1,15 +1,26 @@
+/**
+ * Enrutador principal de la aplicación.
+ * Maneja las rutas para el registro, inicio de sesión,
+ * perfil de usuario, y gestión de juegos.
+*/ 
+
+// Importar módulos necesarios
 var express = require('express');
 var router = express.Router();
 
+// Importar DAOs y base de datos
 const Database = require('../database/Database');
 const UsuarioDAO = require('../database/usuario-dao');
 const JuegosDAO = require('../database/juegos-dao');
 
+// Crear instancias de DAOs, que usarán la misma instancia de la base de datos
 const db = Database.getInstance();
 const usuarioDAO = new UsuarioDAO(db);
 const juegosDAO = new JuegosDAO(db);
 
-/* GET home page. */
+// ------------ PÁGINAS PUBLICAS, accesibles sin autenticación ------------ //
+
+/* GET página principal */
 router.get('/', function(req, res, next) {
   if (req.session.user) {
     return res.redirect('/perfil');
@@ -17,12 +28,12 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-/* GET register page. */
+/* GET página de registro */
 router.get('/registro', function(req, res, next) {
   res.render('registro');
 });
 
-/* POST register page */
+/* POST para controlar registro */
 router.post('/registro', function(req,res,next){
 
   const { nickname, email, password } = req.body;
@@ -39,7 +50,7 @@ router.post('/registro', function(req,res,next){
 
 })
 
-/* POST login page */
+/* POST para controlar login, este se controla a traves del modal*/
 router.post('/login', function(req,res,next){
 
   const { email, password } = req.body;
@@ -57,13 +68,15 @@ router.post('/login', function(req,res,next){
   
 })
 
-/* GET logout page */
+/* GET página de cierre de sesión */
 router.get('/logout', function(req,res,next){
   req.session.destroy();
   res.redirect('/');
 });
 
-/*GET perfil page */
+// ------------ PÁGINAS PRIVADAS, requieren autenticación ------------ //
+
+/* GET página de perfil */
 router.get('/perfil', function(req, res, next) {
   if (!req.session.user) {
     return res.redirect('/');
@@ -76,7 +89,7 @@ router.get('/perfil', function(req, res, next) {
   res.render('perfil', { juegos, user: req.session.user, filtros });
 });
 
-/*GET nuevo juego page */
+/* GET página de nuevo juego */
 router.get('/nuevo-juego', function(req, res, next) {
   if (!req.session.user) {
     return res.redirect('/');
@@ -84,17 +97,18 @@ router.get('/nuevo-juego', function(req, res, next) {
   res.render('nuevo-juego');
 });
 
-/* POST nuevo juego */
+/* POST página de nuevo juego */
 router.post('/nuevo-juego', function(req, res, next) {
   if (!req.session.user) {
     return res.redirect('/');
   }
-  const { titulo, plataforma, genero, estado, imagen } = req.body;
+
+  const { titulo, plataforma, genero, estado, imagen } = req.body;// obtener datos del formulario
   juegosDAO.agregarJuego(titulo, plataforma, genero, estado, imagen, req.session.user.id);
   res.redirect('/perfil');
 });
 
-/*GET editar juego page */
+/* GET página de editar juego */
 router.get('/editar', function(req, res, next) {
   if (!req.session.user) {
     return res.redirect('/');
@@ -106,7 +120,7 @@ router.get('/editar', function(req, res, next) {
   res.render('editar', { juego, urlOrigen });
 });
 
-/* POST eliminar juego */
+/* POST para eliminar juego */
 router.post('/eliminar/:id', function(req, res, next) {
   if (!req.session.user) {
     return res.redirect('/');

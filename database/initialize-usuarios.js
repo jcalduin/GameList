@@ -15,6 +15,7 @@ module.exports = (db) => {
 
     db.prepare(sql).run();
 
+    // Insertar un usuario por defecto si la tabla está vacía
     const count = db.prepare('SELECT count(*) as total FROM usuarios').get()
     if (count.total === 0) {
         

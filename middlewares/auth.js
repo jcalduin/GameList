@@ -1,3 +1,10 @@
+/**
+ * Middleware para gestionar la autenticación de usuarios.
+ * Verifica si el usuario está autenticado y establece variables locales
+ * para las vistas en función del estado de autenticación.
+ * @module middlewares/auth
+*/
+
 const auth = (req,res,next) => {
 
     if (req.session.user) {

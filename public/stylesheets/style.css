@@ -1,5 +1,9 @@
-@import "theme.css";
+/**
+* Hoja de estilos compartida para toda la aplicación
+* Funcionalidades básicas de diseño y layout que no podemos lograr con Bootstrap
+*/
 
+/* Reset básico de márgenes y paddings*/
 html, body {
     margin: 0;
     padding: 0;
@@ -11,6 +15,7 @@ body {
     min-height: 100vh;
     grid-template-rows: auto 1fr auto;
 }
+
 /* Clase para el carrusel, borde redondeado en escritorio */
 .carousel-inner {
     border-radius: 0;

@@ -1,4 +1,9 @@
-// Script para validación de Bootstrap
+/**
+ * Validación de formularios con Bootstrap y verificación de contraseñas
+ * Clase de ejemplo obtenida de:
+ * https://getbootstrap.com/docs/5.3/forms/validation/#custom-styles 
+*/
+
 (function () {
     'use strict'
 
@@ -8,6 +13,7 @@
         return
     }
 
+    // Obtener los campos de contraseña y confirmación
     const passwordInput = form.querySelector('input[name="password"]')
     const confirmPasswordInput = form.querySelector('input[name="confirmPassword"]')
 
@@ -44,7 +50,11 @@
 })()
 
 
-// Capturar el juego a eliminar cuando se abre el modal
+/**
+ * Configuración del modal de eliminación
+ * Añadimos un listener a cada botón de eliminar para actualizar el contenido del modal
+ * con los datos del juego correspondiente
+*/
 document.querySelectorAll('.btn-eliminar').forEach(btn => {
     btn.addEventListener('click', function() {
         const juegoId = this.getAttribute('data-juego-id');

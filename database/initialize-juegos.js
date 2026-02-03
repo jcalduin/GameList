@@ -1,6 +1,6 @@
 /**
  * Archivo para inicializar la tabla videojuegos
- */
+*/
 
 module.exports = (db) => {
 
@@ -19,6 +19,7 @@ module.exports = (db) => {
 
     db.prepare(sql).run();
     
+    // datos semilla para la tabla videojuegos
     const count = db.prepare('SELECT count(*) as total FROM videojuegos').get()
     if (count.total === 0) {
         
