@@ -1,3 +1,4 @@
+<!-- Barra de navegación -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top shadow-lg">
 
     <div class="container">
@@ -6,17 +7,21 @@
             <i class="bi bi-controller me-2 fs-2"></i>GameList
         </a>
 
-        <ul class="navbar-nav mx-auto mb-2 mb-md-0 d-none d-md-flex">
-            <li class="nav-item">
-                <a href="#" class="nav-link active">Inicio</a>
-            </li>
-            <li class="nav-item">
-                <a href="" class="nav-link">Características</a>
-            </li>
-            <li class="nav-item">
-                <a href="" class="nav-link">Cómo Funciona</a>
-            </li>
-        </ul>
+        <% if (!isLoggedIn) { %>
+
+            <ul class="navbar-nav mx-auto mb-2 mb-md-0 d-none d-md-flex">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#caracteristicas" class="nav-link">Características</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#como-empezar" class="nav-link">Cómo Funciona</a>
+                </li>
+            </ul>
+            
+        <% } %>
 
         <div class="d-flex flex-row gap-2 align-items-center">
 
@@ -42,7 +47,7 @@
     </div>
 
 </nav>
-<!-- Modal de login -->
+<!-- Modal de login, colocado aquí para facilitar el acceso desde cualquier página -->
 <div class="modal fade" id="loginModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
 
@@ -86,4 +91,4 @@
         </div>
 
     </div>
-</div>             
+</div>

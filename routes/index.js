@@ -30,7 +30,7 @@ router.post('/registro', function(req,res,next){
   const usuarioExistente = usuarioDAO.buscarUsuarioPorEmail(email);
 
   if (usuarioExistente) {
-    return  res.render('registro', { error: 'El usuario ya existe' });
+    return  res.render('registro', { error: 'El usuario ya existe' ,});
   }
 
   usuarioDAO.agregarUsuario(nickname, email, password);
@@ -69,9 +69,11 @@ router.get('/perfil', function(req, res, next) {
     return res.redirect('/');
   }
 
-  const juegos = juegosDAO.buscarJuegosPorUsuarioId(req.session.user.id);
+  // Obtener filtros de la consulta, si existen
+  const filtros = req.query
+  const juegos = juegosDAO.filtrarJuegos(req.session.user.id, filtros);
 
-  res.render('perfil', { juegos, user: req.session.user });
+  res.render('perfil', { juegos, user: req.session.user, filtros });
 });
 
 /*GET nuevo juego page */
@@ -99,7 +101,9 @@ router.get('/editar', function(req, res, next) {
   }
   const juegoId = req.query.id; //parametro pasado en la URL
   const juego = juegosDAO.buscarJuegoPorId(juegoId);
-  res.render('editar', { juego });
+  const urlOrigen = req.headers.referer || '/perfil'; // obtner url anterior para mantener filtros aplicados
+
+  res.render('editar', { juego, urlOrigen });
 });
 
 /* POST eliminar juego */
@@ -111,7 +115,7 @@ router.post('/eliminar/:id', function(req, res, next) {
   const juegoId = req.params.id;
   juegosDAO.eliminarJuegoPorId(juegoId);
 
-  res.redirect('/perfil');
+  res.redirect('back'); // Redirige a la página anterior asi conservo los filtros aplicados
 });
 
 /* POST editar juego */
@@ -120,10 +124,11 @@ router.post('/editar/:id', function(req, res, next) {
     return res.redirect('/');
   }
   const juegoId = req.params.id; //parametro pasado en la URL
-  const { titulo, plataforma, genero, estado, imagen } = req.body;
+  const { titulo, plataforma, genero, estado, imagen, urlOrigen } = req.body;
   juegosDAO.editarJuego(juegoId, titulo, plataforma, genero, estado, imagen);
 
-  res.redirect('/perfil');
+  res.redirect(urlOrigen || '/perfil'); // si no hay url de origen, redirijo a perfil
 });
+
 
 module.exports = router;

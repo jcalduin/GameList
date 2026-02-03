@@ -8,8 +8,8 @@
         return
     }
 
-    const passwordInput = document.getElementById('password')
-    const confirmPasswordInput = document.getElementById('confirmPassword')
+    const passwordInput = form.querySelector('input[name="password"]')
+    const confirmPasswordInput = form.querySelector('input[name="confirmPassword"]')
 
     form.addEventListener('submit', function (event) {
         // Validar que las contraseñas coincidan si existen ambos campos

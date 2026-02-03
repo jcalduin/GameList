@@ -8,6 +8,9 @@
                 
                 <form action="/editar/<%= juego.id %>" method="POST">
 
+                    <!-- Campo oculto para la URL de origen, provocamos que al editar un juego se mantengan los filtros aplicados -->
+                    <input type="hidden" name="urlOrigen" value="<%= urlOrigen %>">
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Título del Videojuego</label>
                         <input type="text" name="titulo" class="form-control" value="<%= juego.titulo %>" placeholder="Ej: Elden Ring" required>

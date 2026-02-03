@@ -18,43 +18,55 @@
                 <a href="/nuevo-juego" class="btn btn-primary px-3 px-md-5 py-2 py-md-3 fw-bold shadow-lg mt-3"><i class="bi bi-plus-circle"></i> Añadir Nuevo Juego</a>
             </div>
 
-            <div class="col-md-4 mb-3">
-                <label for="filtro-plataforma" class="form-label">Plataforma</label>
-                <select id="filtro-plataforma" class="form-select">
-                    <option value="" selected>Todas las plataformas</option>
-                    <option value="PC">PC</option>
-                    <option value="PlayStation">PlayStation 5</option>
-                    <option value="Xbox">Xbox Series X</option>
-                    <option value="Switch">Nintendo Switch</option>
-                </select>
-            </div> 
+            <form action="/perfil" method="GET">
 
-            <div class="col-md-4 mb-3">
-                <label for="filtro-estado" class="form-label">Estado</label>
-                <select id="filtro-estado" class="form-select">
-                    <option value="" selected>Todos los estados</option>
-                    <option value="Jugando">Jugando</option>
-                    <option value="Completado">Completado</option>
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="Abandonado">Abandonado</option>
-                </select>
-            </div>
+                <div class="row">
 
-            <div class="col-md-4 mb-3">
-                <label for="filtro-genero" class="form-label">Género</label>
-                <select id="filtro-genero" class="form-select">
-                    <option value="" selected>Todos los géneros</option>
-                    <option value="Acción">Acción</option>
-                    <option value="Aventura">Aventura</option>
-                    <option value="RPG">RPG</option>
-                    <option value="Deportes">Deportes</option>
-                    <option value="Estrategia">Estrategia</option>
-                    <option value="Puzzle">Puzzle</option>
-                    <option value="Shooter">Shooter</option>
-                    <option value="Simulación">Simulación</option>
-                    <option value="Terror">Terror</option>
-                </select>
-            </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="filtro-plataforma" class="form-label">Plataforma</label>
+                        <select id="filtro-plataforma" class="form-select" name="plataforma">
+                            <option value=""  <%= !filtros.plataforma ? 'selected' : '' %>>Todas las plataformas</option>
+                            <option value="PC" <%= filtros.plataforma === 'PC' ? 'selected' : '' %>>PC</option>
+                            <option value="PlayStation" <%= filtros.plataforma === 'PlayStation' ? 'selected' : '' %>>PlayStation</option>
+                            <option value="Xbox" <%= filtros.plataforma === 'Xbox' ? 'selected' : '' %>>Xbox</option>
+                            <option value="Switch" <%= filtros.plataforma === 'Switch' ? 'selected' : '' %>>Switch</option>
+                        </select>
+                    </div> 
+
+                    <div class="col-md-4 mb-3">
+                        <label for="filtro-estado" class="form-label">Estado</label>
+                        <select id="filtro-estado" class="form-select" name="estado">
+                            <option value=""  <%= !filtros.estado ? 'selected' : '' %>>Todos los estados</option>
+                            <option value="Jugando" <%= filtros.estado === 'Jugando' ? 'selected' : '' %>>Jugando</option>
+                            <option value="Completado" <%= filtros.estado === 'Completado' ? 'selected' : '' %>>Completado</option>
+                            <option value="Pendiente" <%= filtros.estado === 'Pendiente' ? 'selected' : '' %>>Pendiente</option>
+                            <option value="Abandonado" <%= filtros.estado === 'Abandonado' ? 'selected' : '' %>>Abandonado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="filtro-genero" class="form-label">Género</label>
+                        <select id="filtro-genero" class="form-select" name="genero">
+                            <option value=""  <%= !filtros.genero ? 'selected' : '' %>>Todos los géneros</option>
+                            <option value="Acción" <%= filtros.genero === 'Acción' ? 'selected' : '' %>>Acción</option>
+                            <option value="Aventura" <%= filtros.genero === 'Aventura' ? 'selected' : '' %>>Aventura</option>
+                            <option value="RPG" <%= filtros.genero === 'RPG' ? 'selected' : '' %>>RPG</option>
+                            <option value="Deportes" <%= filtros.genero === 'Deportes' ? 'selected' : '' %>>Deportes</option>
+                            <option value="Estrategia" <%= filtros.genero === 'Estrategia' ? 'selected' : '' %>>Estrategia</option>
+                            <option value="Puzzle" <%= filtros.genero === 'Puzzle' ? 'selected' : '' %>>Puzzle</option>
+                            <option value="Shooter" <%= filtros.genero === 'Shooter' ? 'selected' : '' %>>Shooter</option>
+                            <option value="Simulación" <%= filtros.genero === 'Simulación' ? 'selected' : '' %>>Simulación</option>
+                            <option value="Terror" <%= filtros.genero === 'Terror' ? 'selected' : '' %>>Terror</option>
+                        </select>
+                    </div>
+                    
+                </div>
+
+                <div class="col-12 d-md-flex justify-content-md-end align-items-md-end">
+                    <button type="submit" class="btn btn-secondary px-4 py-2 fw-bold mt-2">Aplicar Filtros</button>
+                </div>
+
+            </form>
 
         </div>
 
@@ -62,33 +74,46 @@
 
     <div class="container mt-4">
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <% if (juegos.length == 0) { %>
 
-            <% juegos.forEach(juego => { %>
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <div>
+                    No se encontró ningún juego que coincida con los filtros aplicados o no hay juegos registrados en tu colección.
+                </div>
+            </div>
 
-                <div class="col">
-                    <div class="card h-100 shadow-sm border-0 bg-dark text-white">
-                        <img src="<%= juego.imagen %>" class="card-img-top card-game-img" alt="Imagen de <%= juego.titulo %>">
-                        
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold"><%= juego.titulo %></h5>
-                            <p class="card-text mb-1 text-white-50 small"><%= juego.plataforma %> • <%= juego.genero %></p>
+        <% } else { %>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+                <% juegos.forEach(juego => { %>
+
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 bg-dark text-white">
+                            <img src="<%= juego.imagen %>" class="card-img-top card-game-img" alt="Imagen de <%= juego.titulo %>">
                             
-                            <div class="mb-3">
-                                <span class="badge bg-primary"><%= juego.estado %></span>
-                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold"><%= juego.titulo %></h5>
+                                <p class="card-text mb-1 text-white-50 small"><%= juego.plataforma %> • <%= juego.genero %></p>
+                                
+                                <div class="mb-3">
+                                    <span class="badge bg-primary"><%= juego.estado %></span>
+                                </div>
 
-                            <div class="mt-auto d-flex gap-2">
-                                <a href="/editar?id=<%= juego.id %>" class="btn btn-sm btn-outline-light w-100">Editar</a>
-                                <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar" data-juego-id="<%= juego.id %>" data-juego-titulo="<%= juego.titulo %>" data-bs-toggle="modal" data-bs-target="#confirmarEliminar"><i class="bi bi-trash"></i></button>
+                                <div class="mt-auto d-flex gap-2">
+                                    <a href="/editar?id=<%= juego.id %>" class="btn btn-sm btn-outline-light w-100">Editar</a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar" data-juego-id="<%= juego.id %>" data-juego-titulo="<%= juego.titulo %>" data-bs-toggle="modal" data-bs-target="#confirmarEliminar"><i class="bi bi-trash"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-   
-            <% }); %>
+    
+                <% }); %>
 
-        </div>
+            </div>
+
+        <% } %>
 
     </div>
 

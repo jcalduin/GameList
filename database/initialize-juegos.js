@@ -10,7 +10,7 @@ module.exports = (db) => {
             usuario_id INTEGER NOT NULL,
             titulo VARCHAR(255) NOT NULL,
             plataforma VARCHAR(255) CHECK(plataforma IN ('PC', 'PlayStation', 'Xbox', 'Switch')) NOT NULL,
-            genero VARCHAR(255) CHECK(genero IN ('Acción', 'Aventura', 'RPG', 'Deportes', 'Estrategia', 'Puzzle', 'Shooter', 'Simulación', 'Terror')),
+            genero VARCHAR(255) CHECK(genero IN ('Accion', 'Aventura', 'RPG', 'Deportes', 'Estrategia', 'Puzzle', 'Shooter', 'Simulacion', 'Terror')),
             estado VARCHAR(255) CHECK(estado IN ('Pendiente', 'Jugando', 'Completado', 'Abandonado')) DEFAULT 'Pendiente',
             imagen TEXT,
             FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
@@ -30,7 +30,7 @@ module.exports = (db) => {
         
         insert.run(1, 'Elden Ring','PC','RPG','Pendiente','https://static.posters.cz/image/750/121753.jpg');
         
-        insert.run(1, 'God of War','PlayStation','Acción','Completado','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk_BcRkD4UCXBPGhF-6StnpHwNgSc_mUq5bQ&s');
+        insert.run(1, 'God of War','PlayStation','Accion','Completado','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk_BcRkD4UCXBPGhF-6StnpHwNgSc_mUq5bQ&s');
         
         insert.run(1, 'Hollow Knight','PC','Aventura','Jugando','https://m.media-amazon.com/images/I/81KuubwpqoL._AC_UF894,1000_QL80_.jpg');
     }

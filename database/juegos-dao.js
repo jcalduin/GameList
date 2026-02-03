@@ -53,6 +53,36 @@ class JuegosDAO {
 
     }
 
+    filtrarJuegos(usuarioId, filtros) {
+
+        let sql = 'SELECT * FROM videojuegos WHERE usuario_id = ?'
+
+        const parametrosBusqueda = [usuarioId]
+
+        if (filtros.plataforma && filtros.plataforma !== '') {
+
+            sql += ' AND plataforma = ?'
+            parametrosBusqueda.push(filtros.plataforma)
+        }
+
+        if (filtros.genero && filtros.genero !== '') {
+
+            sql += ' AND genero = ?'
+            parametrosBusqueda.push(filtros.genero)
+        }
+
+        if (filtros.estado && filtros.estado !== '') {
+
+            sql += ' AND estado = ?'
+            parametrosBusqueda.push(filtros.estado)
+        }
+
+        const resultado = this.#database.prepare(sql).all(...parametrosBusqueda)
+
+        return resultado
+
+    }
+
 
 }
 
