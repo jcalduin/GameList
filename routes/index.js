@@ -9,7 +9,7 @@ var express = require('express');
 var router = express.Router();
 
 // Importar DAOs y base de datos
-const Database = require('../database/Database');
+const Database = require('../database/database');
 const UsuarioDAO = require('../database/usuario-dao');
 const JuegosDAO = require('../database/juegos-dao');
 

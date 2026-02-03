@@ -210,4 +210,3 @@ Toda la lógica de base de datos está encapsulada en `usuario-dao.js` y `juegos
 **Año:** 2026
 
 © 2026 GameList. Todos los derechos reservados.
-```
