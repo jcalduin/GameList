@@ -123,13 +123,29 @@ router.get('/editar', function(req, res, next) {
 /* POST para eliminar juego */
 router.post('/eliminar/:id', function(req, res, next) {
   if (!req.session.user) {
-    return res.redirect('/');
+    return res.status(401).json({
+      mensaje : 'No autorizado'
+    })
   }
 
-  const juegoId = req.params.id;
-  juegosDAO.eliminarJuegoPorId(juegoId);
+  try {
 
-  res.redirect('back'); // Redirige a la página anterior asi conservo los filtros aplicados
+    const juegoId = req.params.id; //parametro pasado en la URL
+    juegosDAO.eliminarJuegoPorId(juegoId);
+
+    res.json({
+      mensaje : 'Juego eliminado correctamente'
+    });
+
+  } catch (error) {
+
+    console.error('Error al eliminar juego:', error);
+    res.status(500).json({
+      mensaje : 'Error al eliminar el juego'
+    });
+
+  }
+
 });
 
 /* POST editar juego */
