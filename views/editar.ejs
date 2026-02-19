@@ -7,7 +7,7 @@
 
             <div class="card-body p-5">
                 
-                <form action="/editar/<%= juego.id %>" method="POST">
+                <form id="formEditarJuego" action="/editar/<%= juego.id %>" method="POST">
 
                     <!-- Campo oculto para la URL de origen, provocamos que al editar un juego se mantengan los filtros aplicados -->
                     <input type="hidden" name="urlOrigen" value="<%= urlOrigen %>">

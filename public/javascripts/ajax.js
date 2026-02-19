@@ -5,12 +5,21 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // funcion de utilidad para no escribir fetch con el mismo bloque de codigo por cada accion
-    async function enviarDatos(url, opciones = { method: 'POST' }) {
+    async function enviarDatos(url, cuerpo = null) {
+        const opciones = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        // Si le pasamos datos, los metemos en el cuerpo del fetch
+        if (cuerpo) {
+            opciones.body = JSON.stringify(cuerpo);
+        }
+
         const respuesta = await fetch(url, opciones);
         const datos = await respuesta.json();
 
         if (!respuesta.ok) {
-            // Si el servidor responde con error, lanzamos el mensaje para el catch
             throw new Error(datos.mensaje || 'Error en la operación');
         }
 
@@ -19,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Eliminar juego
     const formEliminar = document.querySelector('#formEliminar');
-
     if (formEliminar) {
         formEliminar.addEventListener('submit', async function (event) {
             event.preventDefault(); // Detener recarga
@@ -64,5 +72,76 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // añadir juego
-    
+    const formNuevoJuego = document.querySelector('#formNuevoJuego');
+    if (formNuevoJuego) {
+        formNuevoJuego.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this); // recogemos todos los datos del formulario
+            const datosForm = Object.fromEntries(formData.entries()); // convertimos a objeto para enviar al servidor
+
+            try {
+
+                const resultado = await enviarDatos(this.action, datosForm);
+
+                await Swal.fire({
+                    title: '¡Juego añadido!',
+                    text: resultado.mensaje,
+                    icon: 'success',
+                    timer: 2000,
+                    width: '350px',
+                    showConfirmButton: false
+                });
+
+                window.location.href = '/perfil'; // redirigimos al perfil para que se vea el nuevo juego añadido
+
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: error.message,
+                    icon: 'error',
+                    width: '350px'
+                });
+            }
+
+        });
+    }
+
+    // editar juego
+    const formEditarJuego = document.querySelector('#formEditarJuego');
+    if (formEditarJuego) {
+        formEditarJuego.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this); 
+            const datosForm = Object.fromEntries(formData.entries());
+
+            try {
+
+                const resultado = await enviarDatos(this.action, datosForm);
+
+                await Swal.fire({
+                    title: '¡Juego actualizado!',
+                    text: resultado.mensaje,
+                    icon: 'success',
+                    timer: 2000,
+                    width: '350px',
+                    showConfirmButton: false
+                });
+
+                const destino = datosForm.urlOrigen || '/perfil'; // si el formulario incluye una URL de origen, redirigimos a esa, sino al perfil
+                window.location.href = destino;
+
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: error.message,
+                    icon: 'error',
+                    width: '350px'
+                });
+            }
+
+        });
+    }
+
 })

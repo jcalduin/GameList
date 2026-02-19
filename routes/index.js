@@ -100,12 +100,28 @@ router.get('/nuevo-juego', function(req, res, next) {
 /* POST página de nuevo juego */
 router.post('/nuevo-juego', function(req, res, next) {
   if (!req.session.user) {
-    return res.redirect('/');
+    return res.status(401).json({
+      mensaje: 'Sesión expirada. Por favor, inicia sesión de nuevo.'
+    });
   }
 
-  const { titulo, plataforma, genero, estado, imagen } = req.body;// obtener datos del formulario
-  juegosDAO.agregarJuego(titulo, plataforma, genero, estado, imagen, req.session.user.id);
-  res.redirect('/perfil');
+  try {
+
+    const { titulo, plataforma, genero, estado, imagen } = req.body; // obtener datos del formulario
+
+    juegosDAO.agregarJuego(titulo, plataforma, genero, estado, imagen, req.session.user.id);
+
+    res.json({
+      mensaje: 'Juego añadido correctamente'
+    });
+
+  } catch (error) {
+    console.error('Error al añadir juego:', error);
+    res.status(500).json({
+      mensaje: 'Error al añadir el juego'
+    });
+  }
+
 });
 
 /* GET página de editar juego */
@@ -151,13 +167,30 @@ router.post('/eliminar/:id', function(req, res, next) {
 /* POST editar juego */
 router.post('/editar/:id', function(req, res, next) {
   if (!req.session.user) {
-    return res.redirect('/');
+    return res.status(401).json({
+      mensaje : 'No autorizado'
+    })
   }
-  const juegoId = req.params.id; //parametro pasado en la URL
-  const { titulo, plataforma, genero, estado, imagen, urlOrigen } = req.body;
-  juegosDAO.editarJuego(juegoId, titulo, plataforma, genero, estado, imagen);
 
-  res.redirect(urlOrigen || '/perfil'); // si no hay url de origen, redirijo a perfil
+  try {
+
+    const juegoId = req.params.id;
+
+    const { titulo, plataforma, genero, estado, imagen } = req.body; // obtener datos del formulario
+    juegosDAO.editarJuego(juegoId, titulo, plataforma, genero, estado, imagen);
+
+    res.json({
+      mensaje : 'Juego actualizado correctamente'
+    });
+
+  } catch (error) {
+
+    console.error('Error al actualizar juego:', error);
+    res.status(500).json({
+      mensaje : 'Error al actualizar el juego'
+    });
+  }
+  
 });
 
 
