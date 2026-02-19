@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: '¡Hecho!',
                     text: datos.mensaje,
                     icon: 'success',
-                    timer: 1500,
+                    timer: 1200,
                     showConfirmButton: false,
                     width: '350px' 
                 });
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: '¡Juego añadido!',
                     text: resultado.mensaje,
                     icon: 'success',
-                    timer: 2000,
+                    timer: 1200,
                     width: '350px',
                     showConfirmButton: false
                 });
@@ -128,13 +128,55 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: '¡Juego actualizado!',
                     text: resultado.mensaje,
                     icon: 'success',
-                    timer: 2000,
+                    timer: 1200,
                     width: '350px',
                     showConfirmButton: false
                 });
 
                 const destino = datosForm.urlOrigen || '/perfil'; // si el formulario incluye una URL de origen, redirigimos a esa, sino al perfil
                 window.location.href = destino;
+
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: error.message,
+                    icon: 'error',
+                    width: '350px'
+                });
+            }
+
+        });
+    }
+
+    // formulario de registro
+    const formRegistro = document.querySelector('#formRegistro');
+    if (formRegistro) {
+        formRegistro.addEventListener('submit', async function (event) {
+
+            event.preventDefault();
+
+            if (!this.checkValidity()) {
+                event.stopPropagation();
+                return;
+            }
+
+            const formData = new FormData(this);
+            const datosForm = Object.fromEntries(formData.entries());
+
+            try {
+
+                const resultado = await enviarDatos(this.action, datosForm);
+
+                await Swal.fire({
+                    title: '¡Registro exitoso!',
+                    text: resultado.mensaje,
+                    icon: 'success',
+                    timer: 1500,
+                    width: '350px',
+                    showConfirmButton: false
+                });
+
+                window.location.href = '/'; // redirigimos al inicio para que el usuario inicie sesión después de registrarse
 
             } catch (error) {
                 Swal.fire({

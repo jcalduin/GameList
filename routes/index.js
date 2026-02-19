@@ -41,12 +41,12 @@ router.post('/registro', function(req,res,next){
   const usuarioExistente = usuarioDAO.buscarUsuarioPorEmail(email);
 
   if (usuarioExistente) {
-    return  res.render('registro', { error: 'El usuario ya existe' ,});
+    return res.status(400).json({ mensaje: 'El usuario ya existe con ese correo electrónico.' });
   }
 
   usuarioDAO.agregarUsuario(nickname, email, password);
 
-  res.redirect('/');
+  res.status(200).json({ mensaje: 'Cuenta creada con éxito. ¡Bienvenido!' });;
 
 })
 
