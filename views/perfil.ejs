@@ -20,56 +20,55 @@
 
             <div class="col-12 d-flex justify-content-between align-items-center mb-3">
                 <h2 class="display-5 my-3">Filtros</h2>
-                <a href="/nuevo-juego" class="btn btn-primary px-3 px-md-5 py-2 py-md-3 fw-bold shadow-lg mt-3"><i class="bi bi-plus-circle"></i> Añadir Nuevo Juego</a>
+                <a href="/nuevo-juego" class="btn btn-primary px-3 px-md-5 py-2 py-md-3 fw-bold shadow-lg mt-3">
+                    <i class="bi bi-plus-circle"></i> 
+                    Añadir Nuevo Juego
+                </a>
             </div>
 
             <!-- Formulario de filtros -->
-            <form action="/perfil" method="GET">
+            <form id="form-filtros">
 
                 <div class="row">
 
                     <div class="col-md-4 mb-3">
                         <label for="filtro-plataforma" class="form-label">Plataforma</label>
                         <select id="filtro-plataforma" class="form-select" name="plataforma">
-                            <option value=""  <%= !filtros.plataforma ? 'selected' : '' %>>Todas las plataformas</option>
-                            <option value="PC" <%= filtros.plataforma === 'PC' ? 'selected' : '' %>>PC</option>
-                            <option value="PlayStation" <%= filtros.plataforma === 'PlayStation' ? 'selected' : '' %>>PlayStation</option>
-                            <option value="Xbox" <%= filtros.plataforma === 'Xbox' ? 'selected' : '' %>>Xbox</option>
-                            <option value="Switch" <%= filtros.plataforma === 'Switch' ? 'selected' : '' %>>Switch</option>
+                            <option value="">Todas las plataformas</option>
+                            <option value="PC">PC</option>
+                            <option value="PlayStation">PlayStation</option>
+                            <option value="Xbox">Xbox</option>
+                            <option value="Switch">Switch</option>
                         </select>
                     </div> 
 
                     <div class="col-md-4 mb-3">
                         <label for="filtro-estado" class="form-label">Estado</label>
                         <select id="filtro-estado" class="form-select" name="estado">
-                            <option value=""  <%= !filtros.estado ? 'selected' : '' %>>Todos los estados</option>
-                            <option value="Jugando" <%= filtros.estado === 'Jugando' ? 'selected' : '' %>>Jugando</option>
-                            <option value="Completado" <%= filtros.estado === 'Completado' ? 'selected' : '' %>>Completado</option>
-                            <option value="Pendiente" <%= filtros.estado === 'Pendiente' ? 'selected' : '' %>>Pendiente</option>
-                            <option value="Abandonado" <%= filtros.estado === 'Abandonado' ? 'selected' : '' %>>Abandonado</option>
+                            <option value="">Todos los estados</option>
+                            <option value="Jugando">Jugando</option>
+                            <option value="Completado">Completado</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Abandonado">Abandonado</option>
                         </select>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="filtro-genero" class="form-label">Género</label>
                         <select id="filtro-genero" class="form-select" name="genero">
-                            <option value=""  <%= !filtros.genero ? 'selected' : '' %>>Todos los géneros</option>
-                            <option value="Acción" <%= filtros.genero === 'Acción' ? 'selected' : '' %>>Acción</option>
-                            <option value="Aventura" <%= filtros.genero === 'Aventura' ? 'selected' : '' %>>Aventura</option>
-                            <option value="RPG" <%= filtros.genero === 'RPG' ? 'selected' : '' %>>RPG</option>
-                            <option value="Deportes" <%= filtros.genero === 'Deportes' ? 'selected' : '' %>>Deportes</option>
-                            <option value="Estrategia" <%= filtros.genero === 'Estrategia' ? 'selected' : '' %>>Estrategia</option>
-                            <option value="Puzzle" <%= filtros.genero === 'Puzzle' ? 'selected' : '' %>>Puzzle</option>
-                            <option value="Shooter" <%= filtros.genero === 'Shooter' ? 'selected' : '' %>>Shooter</option>
-                            <option value="Simulación" <%= filtros.genero === 'Simulación' ? 'selected' : '' %>>Simulación</option>
-                            <option value="Terror" <%= filtros.genero === 'Terror' ? 'selected' : '' %>>Terror</option>
+                            <option value="">Todos los géneros</option>
+                            <option value="Acción">Acción</option>
+                            <option value="Aventura">Aventura</option>
+                            <option value="RPG">RPG</option>
+                            <option value="Deportes">Deportes</option>
+                            <option value="Estrategia">Estrategia</option>
+                            <option value="Puzzle">Puzzle</option>
+                            <option value="Shooter">Shooter</option>
+                            <option value="Simulación">Simulación</option>
+                            <option value="Terror">Terror</option>
                         </select>
                     </div>
                     
-                </div>
-
-                <div class="col-12 d-md-flex justify-content-md-end align-items-md-end">
-                    <button type="submit" class="btn btn-secondary px-4 py-2 fw-bold mt-2">Aplicar Filtros</button>
                 </div>
 
             </form>
@@ -80,69 +79,64 @@
 
     <div class="container mt-4">
 
-        <% if (juegos.length == 0) { %>
-
+        <div id="mensaje-vacio" class="d-none">
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                 <i class="bi bi-exclamation-triangle-fill me-2"></i>
                 <div>
                     No se encontró ningún juego que coincida con los filtros aplicados o no hay juegos registrados en tu colección.
                 </div>
             </div>
+        </div>
 
-        <% } else { %>
-
-            <!-- Opción para mostrar solo los juegos marcados como favoritos usando un check-box -->
-            <div class="d-flex justify-content-end mb-4 pb-2 border-bottom border-dark-subtle">
-                <div class="form-check form-switch fs-5">
-
-                    <input class="form-check-input" type="checkbox" id="verFavoritos" checked>
-                    <label class="form-check-label fw-bold" for="verFavoritos">
-                        Mostrar solo favoritos
-                    </label>
-
-                </div>
+        <!-- Opción para mostrar solo los juegos marcados como favoritos usando un check-box -->
+        <div class="d-flex justify-content-end mb-4 pb-2 border-bottom border-dark-subtle">
+            <div class="form-check form-switch fs-5">
+                <input class="form-check-input" type="checkbox" id="verFavoritos" checked>
+                <label class="form-check-label fw-bold" for="verFavoritos">
+                    Mostrar solo favoritos
+                </label>
             </div>
+        </div>
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-
-                <% juegos.forEach(juego => { %>
-
-                    <div class="col tarjeta-juego" data-juego-id="<%= juego.id %>" data-es-favorito="<%= juego.esFavorito %>"> <!-- En cada tarjeta de juego, se almacena el ID y si es favorito -->
-                        <div class="card h-100 shadow-sm border-0 bg-dark text-white">
-                            <img src="<%= juego.imagen %>" class="card-img-top card-game-img" alt="Imagen de <%= juego.titulo %>">
-                            
-                            <div class="card-body d-flex flex-column">
-                                <!-- El boton de favoritos, una estrella -->
-                                <div class="d-flex justify-content-between align-items-start mb-1">
-                                    <h5 class="card-title fw-bold mb-0 pe-2"><%= juego.titulo %></h5>
-                                    <button class="btn btn-link text-secondary p-0 btn-favorito border-0 text-decoration-none" data-id="<%= juego.id %>">
-                                        <i class="bi bi-star fs-4 icono-estrella"></i>
-                                    </button>
-                                </div>
-                                
-                                <p class="card-text mb-1 text-white-50 small"><%= juego.plataforma %> • <%= juego.genero %></p>
-                                
-                                <div class="mb-3">
-                                    <span class="badge bg-primary"><%= juego.estado %></span>
-                                </div>
-
-                                <div class="mt-auto d-flex gap-2">
-                                    <a href="/editar?id=<%= juego.id %>" class="btn btn-sm btn-outline-light w-100">Editar</a>
-                                    <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar" data-juego-id="<%= juego.id %>" data-juego-titulo="<%= juego.titulo %>" data-bs-toggle="modal" data-bs-target="#confirmarEliminar"><i class="bi bi-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                <% }); %>
-
-            </div>
-
-        <% } %>
+        <div id="contenedor-juegos" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <!-- Aquí se cargara el template con todos los juegos pasados por el javascript -->
+        </div>
 
     </div>
 
 </section>
+
+<!-- Template de cada juego, se clona y rellena con JS para cada juego del usuario -->
+<template id="plantilla-juego">
+    <div class="col tarjeta-juego">
+
+        <div class="card h-100 shadow-sm border-0 bg-dark text-white">
+            <img src="" class="card-img-top card-game-img" alt="">
+
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                    <h5 class="card-title fw-bold mb-0 pe-2 js-titulo"></h5>
+                    <button class="btn btn-link text-secondary p-0 btn-favorito border-0 text-decoration-none">
+                        <i class="bi bi-star fs-4 icono-estrella"></i>
+                    </button>
+                </div>
+            </div>
+
+            <p class="card-text mb-1 text-white-50 small js-plataforma-genero ps-3"></p>
+
+            <div class="mb-3 ps-3">
+                <span class="badge bg-primary js-estado"></span>
+            </div>
+
+            <div class="mt-auto d-flex gap-2 p-3">
+                <a href="" class="btn btn-sm btn-outline-light w-100 js-link-editar">Editar</a>
+                <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar" data-bs-toggle="modal" data-bs-target="#confirmarEliminar">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
 
 <!-- Modal de Confirmación de Eliminación -->
 <div class="modal fade" id="confirmarEliminar" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">

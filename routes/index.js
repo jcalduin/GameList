@@ -77,17 +77,34 @@ router.get('/logout', function(req,res,next){
 // ------------ PÁGINAS PRIVADAS, requieren autenticación ------------ //
 
 /* GET página de perfil */
-router.get('/perfil', function(req, res, next) {
+router.get('/perfil', function(req, res) { // ahora solo entregamo la estructura html, los juegos se cargan con JS para mantener filtros aplicados
   if (!req.session.user) {
     return res.redirect('/');
   }
 
-  // Obtener filtros de la consulta, si existen
-  const filtros = req.query
-  const juegos = juegosDAO.filtrarJuegos(req.session.user.id, filtros);
-
-  res.render('perfil', { juegos, user: req.session.user, filtros });
+  res.render('perfil', { user: req.session.user });
 });
+
+/* API GET para obtener los juegos del usuario */
+router.get('/api/juegos', function(req, res) {
+  if (!req.session.user) {
+    return res.status(401).json({ mensaje : 'No autorizado' });
+  }
+
+  try {
+
+    const filtros = req.query; // obtener filtros de la consulta
+    const juegos = juegosDAO.filtrarJuegos(req.session.user.id, filtros); // obtener juegos filtrados del usuario
+    res.json(juegos);
+
+  } catch (error) {
+
+    console.error('Error al obtener juegos:', error);
+    res.status(500).json({ mensaje : 'Error al obtener los datos de la colección' });
+
+  }
+
+})
 
 /* GET página de nuevo juego */
 router.get('/nuevo-juego', function(req, res, next) {
