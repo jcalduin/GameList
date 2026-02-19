@@ -57,14 +57,14 @@ router.post('/login', function(req,res,next){
 
   const usuario = usuarioDAO.buscarUsuarioPorEmail(email);
 
-  if (!usuario) return res.render('index', { error: 'Usuario no encontrado' });
+  if (!usuario) return res.status(400).json({ mensaje: 'No existe una cuenta con ese correo electrónico.' });
   
   if (usuario.password === password) {
 
     req.session.user = usuario;
-    res.redirect('/perfil');
+    res.status(200).json({ mensaje: 'Inicio de sesión exitoso.' });
 
-  } else res.render('index', { error: 'Contraseña incorrecta' })
+  } else res.status(400).json({ mensaje: 'Contraseña incorrecta' })
   
 })
 

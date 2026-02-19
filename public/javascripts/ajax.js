@@ -190,6 +190,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // formulario de login
+    const formLogin = document.querySelector('#formLogin');
+    if (formLogin) {
+        formLogin.addEventListener('submit', async function (event) {
+
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const datosForm = Object.fromEntries(formData.entries());
+
+            try {
+
+                const resultado = await enviarDatos(this.action, datosForm);
+
+                await Swal.fire({
+                    title: '¡Bienvenido!',
+                    text: resultado.mensaje,
+                    icon: 'success',
+                    timer: 1200,
+                    width: '350px',
+                    showConfirmButton: false
+                });
+
+                window.location.href = '/perfil'; // redirigimos al perfil después de iniciar sesión
+                
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: error.message,
+                    icon: 'error',
+                    width: '350px'
+                });
+            }
+
+        });
+    }
+
     // Actualizar las estrellas y el filtro visual de favoritos al cargar la página
     function actualizarEstadoFavoritos() {
         const switchFavoritos = document.querySelector('#verFavoritos');
